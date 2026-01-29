@@ -28,17 +28,14 @@ It doesn't analyze code, enforce practices, or make decisions. It records what y
 ## Example Usage
 
 ```sh
-# Record a decision
-why add "Why we chose PostgreSQL over MongoDB"
+# Record a decision (interactive)
+why add
 
 # List past decisions
 why list
 
-# Search for specific reasoning
-why search "database"
-
 # View a specific decision
-why show 3
+why show 1
 ```
 
 ## Disclaimer

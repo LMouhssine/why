@@ -1,6 +1,6 @@
 {
   "name": "why-cli",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A minimal CLI for capturing technical decision reasoning",
   "type": "module",
   "main": "./dist/index.js",
