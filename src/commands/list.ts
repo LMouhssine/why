@@ -4,16 +4,21 @@ export async function listCommand(): Promise<void> {
   const decisions = await listDecisions();
 
   if (decisions.length === 0) {
-    console.log('No decisions recorded yet.');
-    console.log('Use "why add" to record your first decision.');
+    console.log('\nNo decisions yet.\n');
+    console.log('  Run `why add` to record one.\n');
     return;
   }
 
-  console.log('Decisions:\n');
+  const count = decisions.length;
+  const indexWidth = String(count).length;
 
-  decisions.forEach((decision, index) => {
-    console.log(`  ${index + 1}. [${decision.date}] ${decision.title}`);
+  console.log('');
+
+  decisions.forEach((decision, i) => {
+    const num = String(i + 1).padStart(indexWidth, ' ');
+    console.log(`  ${num}. ${decision.date}  ${decision.title}`);
   });
 
-  console.log(`\nUse "why show <number>" to view details.`);
+  console.log('');
+  console.log(`  ${count} decision${count === 1 ? '' : 's'}. Use \`why show <n>\` to view.\n`);
 }

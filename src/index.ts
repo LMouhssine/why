@@ -5,19 +5,17 @@ import { listCommand } from './commands/list.js';
 import { showCommand } from './commands/show.js';
 
 const HELP = `
-why - Record technical decisions
+why — record technical decisions
 
-Usage:
-  why add           Record a new decision interactively
-  why list          List all recorded decisions
-  why show <n>      Show decision by number or filename
-  why --help        Show this help message
+Commands:
+  why add         Record a new decision
+  why list        List all decisions
+  why show <n>    View a decision by number
 
 Examples:
-  why add                    # Start interactive prompt
-  why list                   # See all decisions
-  why show 1                 # Show most recent decision
-  why show 2024-01-29-use-postgres.md
+  why add
+  why list
+  why show 1
 `;
 
 async function main(): Promise<void> {
@@ -26,6 +24,7 @@ async function main(): Promise<void> {
 
   switch (command) {
     case 'add':
+    case 'new':
       await addCommand();
       break;
 
@@ -42,18 +41,21 @@ async function main(): Promise<void> {
     case '--help':
     case '-h':
     case 'help':
-    case undefined:
       console.log(HELP);
       break;
 
+    case undefined:
+      await listCommand();
+      break;
+
     default:
-      console.error(`Unknown command: ${command}`);
-      console.log(HELP);
+      console.log(`\nUnknown command: ${command}\n`);
+      console.log('Run `why --help` for usage.\n');
       process.exit(1);
   }
 }
 
 main().catch((error) => {
-  console.error('Error:', error.message);
+  console.error(`\nError: ${error.message}\n`);
   process.exit(1);
 });

@@ -2,32 +2,36 @@ import prompts from 'prompts';
 import { saveDecision } from '../storage.js';
 
 export async function addCommand(): Promise<void> {
+  console.log('\nRecord a decision\n');
+
   const response = await prompts([
     {
       type: 'text',
       name: 'title',
-      message: 'Decision title:',
-      validate: (value: string) => value.trim() ? true : 'Title is required'
+      message: 'What did you decide?',
+      validate: (value: string) => value.trim() ? true : 'A title helps you find this later'
     },
     {
       type: 'text',
       name: 'problem',
       message: 'What problem were you solving?',
-      validate: (value: string) => value.trim() ? true : 'Problem description is required'
+      validate: (value: string) => value.trim() ? true : 'Context matters — what prompted this?'
     },
     {
       type: 'text',
       name: 'constraints',
-      message: 'What constraints influenced this decision? (optional)'
+      message: 'Any constraints worth noting?',
+      hint: 'optional'
     },
     {
       type: 'text',
       name: 'tradeoffs',
-      message: 'What trade-offs did you accept? (optional)'
+      message: 'What trade-offs did you accept?',
+      hint: 'optional'
     }
   ], {
     onCancel: () => {
-      console.log('\nCancelled.');
+      console.log('\nDiscarded.\n');
       process.exit(0);
     }
   });
@@ -44,5 +48,5 @@ export async function addCommand(): Promise<void> {
     tradeoffs: response.tradeoffs?.trim() || undefined
   });
 
-  console.log(`\nDecision saved: .why/${filename}`);
+  console.log(`\nSaved to .why/${filename}\n`);
 }

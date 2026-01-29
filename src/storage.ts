@@ -48,6 +48,22 @@ function generateMarkdown(decision: Decision, date: string): string {
 }
 
 /**
+ * Find a unique filename, appending -2, -3, etc. if needed
+ */
+function findUniqueFilename(base: string): string {
+  const filename = `${base}.md`;
+  if (!existsSync(join(WHY_DIR, filename))) {
+    return filename;
+  }
+
+  let suffix = 2;
+  while (existsSync(join(WHY_DIR, `${base}-${suffix}.md`))) {
+    suffix++;
+  }
+  return `${base}-${suffix}.md`;
+}
+
+/**
  * Save a decision to a markdown file
  * Returns the filename
  */
@@ -56,7 +72,7 @@ export async function saveDecision(decision: Decision): Promise<string> {
 
   const date = formatDate(new Date());
   const slug = generateSlug(decision.title);
-  const filename = `${date}-${slug}.md`;
+  const filename = findUniqueFilename(`${date}-${slug}`);
   const filepath = join(WHY_DIR, filename);
 
   const content = generateMarkdown(decision, date);
