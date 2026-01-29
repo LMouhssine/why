@@ -1,0 +1,33 @@
+{
+  "name": "why-cli",
+  "version": "1.0.0",
+  "description": "A minimal CLI for capturing technical decision reasoning",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "why": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsc --watch",
+    "link": "npm link"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cli",
+    "decisions",
+    "documentation",
+    "adr"
+  ],
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
+}
